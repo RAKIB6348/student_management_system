@@ -11,4 +11,7 @@ urlpatterns = [
     path('dashboard/', dashboard_page, name='dashboard_page'),
 
     path('home/admin/', admin_home_page, name='admin_home_page'),
+
+    # profile update
+    path('profile/', profile_page, name="profile"),
 ]

@@ -63,3 +63,10 @@ def user_logout(request):
 def admin_home_page(request):
 
     return render(request, 'admin/admin_home.html')
+
+
+
+# ================ profile ===================
+def profile_page(request):
+
+    return render(request, 'profile.html')
