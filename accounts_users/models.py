@@ -18,9 +18,13 @@ class User(AbstractUser):
         unique=True,
         editable=False,
         db_index=True,
-        blank=True,
-        null=True
+        blank=False,
+        null=False
     )
+
+    USERNAME_FIELD = 'user_id'
+    REQUIRED_FIELDS = ['username', 'email'] 
+
 
     # Student class (Must contain code field)
     student_class = models.ForeignKey(
