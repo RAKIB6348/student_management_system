@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils import timezone
 from academics.models import *
+from django.utils import timezone
+
+
 
 class User(AbstractUser):
 
@@ -14,12 +16,12 @@ class User(AbstractUser):
     user_type = models.CharField(choices=USER_TYPE_CHOICE, max_length=10, default='Admin')
 
     user_id = models.CharField(
-        max_length=30,
+        max_length=12,
         unique=True,
         editable=False,
         db_index=True,
-        blank=True, # for createsuperuser
-        null=False
+        blank=True,
+        null=True
     )
 
     # login user_id set
@@ -37,10 +39,13 @@ class User(AbstractUser):
         blank=True
     )
 
+    #
+    # Generate Prefix (YYMM + type-digit)
+    #
     def _generate_prefix(self) -> str:
         now = timezone.now()
-        year = now.strftime("%y")  # 2025 -> 25
-        month = now.strftime("%m") # 01..12
+        year = now.strftime("%y")     # 25
+        month = now.strftime("%m")    # 01..12
 
         base = f"{year}{month}"
 
@@ -55,7 +60,6 @@ class User(AbstractUser):
                 return base + str(self.student_class.code).zfill(2)
 
         return base
-    
 
     #
     # Generate Final User ID
@@ -66,16 +70,18 @@ class User(AbstractUser):
         # Count existing users with same prefix
         count = User.objects.filter(user_id__startswith=prefix).count()
 
-        # sequential 4 digit number
+        # 4-digit sequence
         sequence = str(count + 1).zfill(4)
 
         return prefix + sequence
 
+    #
+    # Override save
+    #
     def save(self, *args, **kwargs):
         if not self.user_id:
             self.user_id = self.generate_user_id()
         super().save(*args, **kwargs)
 
-    
     def __str__(self):
         return self.username

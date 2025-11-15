@@ -5,6 +5,7 @@ urlpatterns = [
     # login urls
     path('', login_page, name='login_page'),
     path('login/', user_login, name="user_login"),
+    path('logout/', user_logout, name='user_logout'),
 
     #dashboard urls
     path('dashboard/', dashboard_page, name='dashboard_page'),

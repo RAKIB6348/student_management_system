@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -17,7 +17,7 @@ def login_page(request):
     return render(request, 'login.html')
 
 
-
+#============== login =========================
 def user_login(request):
     if request.method == 'POST':
 
@@ -35,7 +35,7 @@ def user_login(request):
 
             # admin type
             if user_type == 'Admin':
-                return HttpResponse("This is a Admin panel dashboard")
+                return redirect('admin_home_page')
 
             elif user_type == 'Teacher':
                 return HttpResponse("This is a Teacher panel dashboard")
@@ -52,7 +52,14 @@ def user_login(request):
     return redirect('login_page')
 
 
+#================= logout ==========================
+def user_logout(request):
+    logout(request)
+    return redirect('login_page')
+
+
 # ======================= admin ==========================
+@login_required
 def admin_home_page(request):
 
     return render(request, 'admin/admin_home.html')
