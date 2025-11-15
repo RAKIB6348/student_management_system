@@ -50,3 +50,9 @@ def user_login(request):
         return redirect('login_page')
 
     return redirect('login_page')
+
+
+# ======================= admin ==========================
+def admin_home_page(request):
+
+    return render(request, 'admin/admin_home.html')

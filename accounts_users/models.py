@@ -18,11 +18,14 @@ class User(AbstractUser):
         unique=True,
         editable=False,
         db_index=True,
-        blank=False,
+        blank=True, # for createsuperuser
         null=False
     )
 
+    # login user_id set
     USERNAME_FIELD = 'user_id'
+
+    # for superuser create
     REQUIRED_FIELDS = ['username', 'email'] 
 
 
@@ -52,6 +55,8 @@ class User(AbstractUser):
                 return base + str(self.student_class.code).zfill(2)
 
         return base
+    
+
     #
     # Generate Final User ID
     #

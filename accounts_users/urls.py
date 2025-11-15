@@ -8,4 +8,6 @@ urlpatterns = [
 
     #dashboard urls
     path('dashboard/', dashboard_page, name='dashboard_page'),
+
+    path('home/admin/', admin_home_page, name='admin_home_page'),
 ]
