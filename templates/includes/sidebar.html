@@ -6,7 +6,7 @@
                         <span>Main Menu</span>
                      </li>
                      <li class="active">
-                        <a href="#"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
+                        <a href="{% url 'admin_home_page' %}"><i class="fas fa-user-graduate"></i> <span>Dashboard</span></a>
                      </li>
                      <li class="submenu">
                         <a href="#"><i class="fas fa-user-graduate"></i> <span> User Management</span> <span class="menu-arrow"></span></a>
@@ -20,7 +20,7 @@
                         <ul>
                
                            <li><a href="student-details.html">Student View</a></li>
-                           <li><a href="add-student.html">Student Add</a></li>
+                           <li><a href="{% url 'student_add' %}">Student Add</a></li>
                            <li><a href="edit-student.html">Student Edit</a></li>
                         </ul>
                      </li>
